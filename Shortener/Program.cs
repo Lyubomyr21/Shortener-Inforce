@@ -2,6 +2,8 @@ global using Shortener.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Shortener.Data;
+using Shortener.Interfaces;
+using Shortener.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers().AddNewtonsoftJson(options=>
 options.SerializerSettings.ContractResolver=new DefaultContractResolver());
 
+builder.Services.AddTransient<ILinksService, LinksService>();
 
 var app = builder.Build();
 

@@ -11,7 +11,7 @@ using Shortener.Data;
 namespace Shortener.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230728170521_InitialCreate")]
+    [Migration("20230729110410_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -37,7 +37,6 @@ namespace Shortener.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

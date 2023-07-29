@@ -34,7 +34,6 @@ namespace Shortener.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

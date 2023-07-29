@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shortener.Data;
+using Shortener.Interfaces;
 using Shortener.Models.Dto;
+using Shortener.Services;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 
 namespace Shortener.Controllers
@@ -10,23 +14,37 @@ namespace Shortener.Controllers
     [ApiController]
     public class LinksShortenerController : ControllerBase
     {
+        private readonly ILinksService _linksService;
+        private readonly DataContext _context;
 
-        private readonly IConfiguration _configuration;
-        public LinksShortenerController(IConfiguration configuration)
+        public LinksShortenerController(ILinksService linksService, DataContext context) 
         {
-            _configuration = configuration;
+            _linksService = linksService;
+            _context = context;
         }
 
-        /*[HttpPost]
-        public IActionResult CreateShortLink(LinkDto linkModel)
-        {
 
+        [HttpGet]
+        public IActionResult GetLinks()
+        {
+            var links = _context.Links.ToList();
+            return Ok(links);
         }
+        
 
-       /* [HttpGet]
-        public IActionResult GetShortLink()
+        [HttpPost]
+        public async Task<IActionResult> CreateShortLink(LinkDto linkModel)
         {
-            
-        }*/
+            var shortLink = new Link
+            {
+                LongLink = linkModel.TransferLongLink,
+                ShortLink = _linksService.GenerateShortLink()
+            };
+
+            var link = _context.Links.Add(shortLink);
+            await _context.SaveChangesAsync();
+
+            return Ok(link);
+        }
     }
 }

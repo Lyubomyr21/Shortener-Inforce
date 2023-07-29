@@ -2,6 +2,6 @@
 {
     public class LinkDto
     {
-        string LongLink { get; set; }
+        public string TransferLongLink { get; set; }
     }
 }
