@@ -2,6 +2,6 @@
 {
     public interface ILinksService
     {
-       // List<Link> AddLink(Link link);
+        public string GenerateShortLink();
     }
 }

@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shortener.Data;
+using Shortener.Interfaces;
 using Shortener.Models.Dto;
+using Shortener.Services;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 
 namespace Shortener.Controllers
@@ -10,23 +14,56 @@ namespace Shortener.Controllers
     [ApiController]
     public class LinksShortenerController : ControllerBase
     {
+        private readonly ILinksService _linksService;
+        private readonly DataContext _context;
 
-        private readonly IConfiguration _configuration;
-        public LinksShortenerController(IConfiguration configuration)
+        public LinksShortenerController(ILinksService linksService, DataContext context) 
         {
-            _configuration = configuration;
+            _linksService = linksService;
+            _context = context;
         }
 
-        /*[HttpPost]
-        public IActionResult CreateShortLink(LinkDto linkModel)
-        {
 
+        [HttpGet]
+        public IActionResult GetLinks()
+        {
+            var links = _context.Links.ToList();
+            return Ok(links);
+        }
+        
+
+        [HttpPost]
+        public async Task<IActionResult> CreateShortLink(LinkDto linkModel)
+        {
+            var shortLink = new Link
+            {
+                LongLink = linkModel.TransferLongLink,
+                ShortLink = _linksService.GenerateShortLink()
+            };
+
+            var link = _context.Links.Add(shortLink);
+            await _context.SaveChangesAsync();
+
+            return Ok(link);
         }
 
-       /* [HttpGet]
-        public IActionResult GetShortLink()
+        [HttpGet("{token}")]
+        public IActionResult FindLinkByToken(string token)
         {
-            
-        }*/
+            var linkByToken = _context.Links.FirstOrDefault(x => x.ShortLink == token);
+            if (linkByToken is null) return NotFound("Not found");
+            return Ok(linkByToken);
+        }
+
+        [HttpDelete("{token}")]
+        public async Task<IActionResult> DeleteShortUrl(string token)
+        {
+            var shortUrl = _context.Links.FirstOrDefault(x => x.ShortLink == token);
+            if (shortUrl is null) return NotFound("Not found");
+
+            _context.Links.Remove(shortUrl);
+            await _context.SaveChangesAsync();
+            return Ok("Deleted");
+        }
     }
 }
