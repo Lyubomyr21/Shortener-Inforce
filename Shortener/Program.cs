@@ -1,6 +1,6 @@
 global using Shortener.Models;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Serialization;
+//using Newtonsoft.Json.Serialization;
 using Shortener.Data;
 using Shortener.Interfaces;
 using Shortener.Services;
@@ -14,16 +14,17 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString"));
 });
 
+builder.Services.AddTransient<ILinksService, LinksService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //JSON Serializer
-builder.Services.AddControllers().AddNewtonsoftJson(options=>
-options.SerializerSettings.ContractResolver=new DefaultContractResolver());
+//builder.Services.AddControllers().AddNewtonsoftJson(options=>
+//options.SerializerSettings.ContractResolver=new DefaultContractResolver());
 
-builder.Services.AddTransient<ILinksService, LinksService>();
+
 
 var app = builder.Build();
 

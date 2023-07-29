@@ -33,18 +33,18 @@ namespace Shortener.Controllers
         
 
         [HttpPost]
-        public async Task<IActionResult> CreateShortLink(LinkDto linkModel)
+        public async Task<IActionResult> CreateShortLink([FromBody] LinkDto linkModel)
         {
-            var shortLink = new Link
+            var linkObject = new Link
             {
-                LongLink = linkModel.TransferLongLink,
+                LongLink = linkModel.BaseLink,
                 ShortLink = _linksService.GenerateShortLink()
             };
 
-            var link = _context.Links.Add(shortLink);
+            var link = _context.Links.Add(linkObject) ;
             await _context.SaveChangesAsync();
 
-            return Ok(link);
+            return Ok(linkObject);
         }
 
         [HttpGet("{token}")]
