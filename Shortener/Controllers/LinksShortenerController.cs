@@ -54,5 +54,16 @@ namespace Shortener.Controllers
             if (linkByToken is null) return NotFound("Not found");
             return Ok(linkByToken);
         }
+
+        [HttpDelete("{token}")]
+        public async Task<IActionResult> DeleteShortUrl(string token)
+        {
+            var shortUrl = _context.Links.FirstOrDefault(x => x.ShortLink == token);
+            if (shortUrl is null) return NotFound("Not found");
+
+            _context.Links.Remove(shortUrl);
+            await _context.SaveChangesAsync();
+            return Ok("Deleted");
+        }
     }
 }
