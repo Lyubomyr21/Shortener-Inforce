@@ -46,5 +46,13 @@ namespace Shortener.Controllers
 
             return Ok(link);
         }
+
+        [HttpGet("{token}")]
+        public IActionResult FindLinkByToken(string token)
+        {
+            var linkByToken = _context.Links.FirstOrDefault(x => x.ShortLink == token);
+            if (linkByToken is null) return NotFound("Not found");
+            return Ok(linkByToken);
+        }
     }
 }
