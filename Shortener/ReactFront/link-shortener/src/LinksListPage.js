@@ -1,15 +1,14 @@
 import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
 
-//import {Button,ButtonToolbar} from 'react-bootstrap';
-//import {AddDepModal} from './AddDepModal';
-//import {EditDepModal} from './EditDepModal';
+import {Button,ButtonToolbar} from 'react-bootstrap';
+import {AddLinkModal} from './AddLinkModal';
 
 export class LinksListPage extends Component{
 
     constructor(props){
         super(props);
-        this.state={Links:[]}
+        this.state={Links:[], addModalShow:false}
     }
 
     refreshList(){
@@ -30,6 +29,7 @@ export class LinksListPage extends Component{
 
     render(){
         const {Links}=this.state;
+        let addModalClose=()=>this.setState({addModalShow:false});
 
         return(
             <div >
@@ -52,6 +52,16 @@ export class LinksListPage extends Component{
                             </tr>)}
                     </tbody>
                 </Table>
+
+                <ButtonToolbar>
+                    <Button variant='primary'
+                    onClick={()=>this.setState({addModalShow:true})}>
+                    Add Link</Button>
+
+                    <AddLinkModal show={this.state.addModalShow}
+                    onHide={addModalClose}/>
+                </ButtonToolbar>
+
             </div>
         )
     }
