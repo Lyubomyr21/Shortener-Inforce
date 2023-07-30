@@ -10,4 +10,3 @@ Right so how to guarantee a unique token, really simple, I resort back to good o
 The process of generating a short link is activated immediately upon creation, and despite the very small chance of this, it still passes an additional check for the presence of the same generated short link in the database.
 
 ![alt text](https://github.com/Lyubomyr21/Shortener-Inforce/blob/master/Shortener/ReactFront/link-shortener/public/screenshot1.png?raw=true)
-![Screenshot]([screenshot.png](https://github.com/Lyubomyr21/Shortener-Inforce/tree/master/Shortener/ReactFront/link-shortener/public/screenshot1.png)https://github.com/Lyubomyr21/Shortener-Inforce/tree/master/Shortener/ReactFront/link-shortener/public/screenshot1.png)
