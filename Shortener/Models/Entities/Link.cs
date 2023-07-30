@@ -2,6 +2,7 @@
 
 namespace Shortener.Models
 {
+    // Represents a link entity in the database.
     public class Link
     {
         [Key]

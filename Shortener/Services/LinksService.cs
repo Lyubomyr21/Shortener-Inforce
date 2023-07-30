@@ -5,6 +5,7 @@ namespace Shortener.Services
 {
     public class LinksService : ILinksService
     {
+        // Generates a random URL-safe short link token.
         public string GenerateShortLink()
         {
             string urlsafe = string.Empty;
