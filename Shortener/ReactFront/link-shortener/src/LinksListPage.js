@@ -27,6 +27,16 @@ export class LinksListPage extends Component{
         this.refreshList();
     }
 
+    deleteLink(LinkId){
+        if(window.confirm('Are you sure?')){
+            fetch(process.env.REACT_APP_API+'LinksShortener/'+LinkId,{
+                method:'DELETE',
+                header:{'Accept':'application/json',
+            'Content-Type':'application/json'}
+            })
+        }
+    }
+
     render(){
         const {Links}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
@@ -48,7 +58,12 @@ export class LinksListPage extends Component{
                                 <td>{Link.id}</td>
                                 <td>{Link.longLink}</td>
                                 <td>{Link.shortLink}</td>
-                                <td>Edit/Delete</td>
+                                <td>
+                                    <Button className="mr-2" variant="danger"
+                                        onClick={()=>this.deleteLink(Link.id)}>
+                                        Delete
+                                    </Button>
+                                </td>
                             </tr>)}
                     </tbody>
                 </Table>
