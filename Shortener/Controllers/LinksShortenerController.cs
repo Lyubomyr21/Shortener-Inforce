@@ -46,7 +46,6 @@ namespace Shortener.Controllers
             {
                 linkObject.ShortLink = _linksService.GenerateShortLink();
             };
-                
 
             var link = _context.Links.Add(linkObject) ;
             await _context.SaveChangesAsync();

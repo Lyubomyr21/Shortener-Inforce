@@ -50,7 +50,7 @@ centered
                     <Form.Group controlId="LongLink">
                         <Form.Label>Enter your link</Form.Label>
                         <Form.Control type="text" name="BaseLink" required 
-                        placeholder="www..."/>
+                        placeholder="https://www..."/>
                     </Form.Group>
 
                     <Form.Group>
