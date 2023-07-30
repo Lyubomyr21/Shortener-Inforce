@@ -39,6 +39,7 @@ namespace Shortener.Controllers
             {
                 LongLink = linkModel.BaseLink,
                 ShortLink = _linksService.GenerateShortLink(),
+                CreatedDate = DateTime.Now,
             };
 
             if (_context.Links.FirstOrDefault(x => x.ShortLink == linkObject.ShortLink) != null)
