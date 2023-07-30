@@ -45,7 +45,7 @@ export class Info extends Component{
                                 <td>{Link.id}</td>
                                 <td>{Link.longLink}</td>
                                 <td>{Link.shortLink}</td>
-                                <td>User {Link.id-12}</td>
+                                <td>User {Link.id-35}</td>
                                 <td>{Link.createdDate}</td>
                             </tr>)}
                     </tbody>
