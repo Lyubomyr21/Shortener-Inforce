@@ -1,6 +1,7 @@
 import { LinksListPage } from "./LinksListPage";
 import { Info } from "./Info";
 import { About } from "./About";
+import LinkRedirect from './LinkRedirect'
 
 
 const AppRoutes = [
@@ -15,6 +16,10 @@ const AppRoutes = [
   {
     path: '/about',
     element: <About />
+  },
+  {
+    path: `/redirect/:id`,
+    element: <LinkRedirect />
   }
 ];
 

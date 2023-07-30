@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {Table} from 'react-bootstrap';
-
 import {Button,ButtonToolbar} from 'react-bootstrap';
 import {AddLinkModal} from './AddLinkModal';
 
@@ -38,6 +37,7 @@ export class LinksListPage extends Component{
     }
     
 
+    
     render(){
         const {Links}=this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
@@ -58,7 +58,11 @@ export class LinksListPage extends Component{
                             <tr key={Link.id}>
                                 <td>{Link.id}</td>
                                 <td>{Link.longLink}</td>
-                                <td>{Link.shortLink}</td>
+                                <td>                
+                                    <a href={window.location.origin + '/redirect/' + Link.shortLink}> 
+                                    {Link.shortLink}
+                                    </a>
+                                </td>
                                 <td>
                                     <Button className="mr-2" variant="danger"
                                         onClick={()=>this.deleteLink(Link.id)}>
